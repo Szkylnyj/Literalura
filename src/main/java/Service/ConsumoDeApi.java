@@ -1,15 +1,17 @@
 package Service;
 
+import org.springframework.stereotype.Service;
+
 import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
+@Service
 public class ConsumoDeApi {
 
-    public String obtenerDatos (String url){
-
+    public String obtenerDatos(String url) {
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(url))
@@ -23,9 +25,11 @@ public class ConsumoDeApi {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
+
         String json = response.body();
         return json;
-
     }
+
+
 
 }
