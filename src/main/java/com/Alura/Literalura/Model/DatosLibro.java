@@ -12,7 +12,12 @@ public record DatosLibro(
 
         @JsonAlias ("title") String titulo,
 
-        @JsonAlias("authors") List<DatosAutor> autores
+        @JsonAlias("authors") List <DatosAutor> autores,
+
+
+        @JsonAlias("languages") List<String> languages,
+
+        @JsonAlias ("download_count") int totalDescargas
 
 
 ) {
