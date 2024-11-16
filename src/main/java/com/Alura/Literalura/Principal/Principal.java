@@ -177,28 +177,23 @@ public class Principal {
             """;
         System.out.println(menu);
 
-        // Leer la entrada del usuario
-        var idiomaInput = scanner.nextLine().toLowerCase(); // Convertimos a minúsculas para hacer la comparación más flexible
 
-        // Intentar convertir la entrada a un valor del enum usando el método fromString
-        Idioma idioma;
-        try {
-            idioma = Idioma.fromString(idiomaInput); // Utilizamos el método fromString de tu enum
-        } catch (IllegalArgumentException e) {
-            System.out.println("Idioma no válido. Por favor, intente de nuevo.");
-            return; // Sale del método si el idioma no es válido
+
+        System.out.println("Escriba el idioma del libro que desea buscar");
+        var idioma = scanner.nextLine();
+
+        List<Libro> libros = librorepository.findByIdiomaContainingIgnoreCase(idioma);
+
+        if (libros.isEmpty()){
+            System.out.println("No se encontraron libros en ese Idioma.");
+        }else{
+            libros.forEach(System.out::println);
+            System.out.println("Total de libros encontrados: " + libros.size());
         }
 
-        try {
-            List<Libro> libros = librorepository.listarLibrosPorIdioma(String.valueOf(idioma));
-            if (libros.isEmpty()) {
-                System.out.println("No se encontraron libros en el idioma seleccionado.");
-            } else {
-                libros.forEach(System.out::println);
-            }
-        } catch (Exception e) {
-            System.out.println("Ocurrió un error al intentar obtener los libros: " + e.getMessage());
-        }
+
+
+
     }
 
 

@@ -4,6 +4,7 @@ import com.Alura.Literalura.Model.DatosAutor;
 import jakarta.persistence.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity (name ="Autor")
 @Table(name = "autores")
@@ -14,9 +15,9 @@ public class Autor {
 
    String nombreAutor;
 
-   int nacimiento;
+   Integer nacimiento;
 
-   int fallecimiento;
+    Integer fallecimiento;
 
 
     @OneToMany(mappedBy = "autor")
@@ -32,7 +33,7 @@ public class Autor {
         this.fallecimiento= datosAutor.fallecimiento();
     }
 
-    public Autor(String nombreAutor, int nacimiento, int fallecimiento) {
+    public Autor(String nombreAutor, Integer nacimiento, Integer fallecimiento) {
         this.nombreAutor = nombreAutor;
         this.nacimiento = nacimiento;
         this.fallecimiento = fallecimiento;
@@ -58,7 +59,7 @@ public class Autor {
         return nacimiento;
     }
 
-    public void setNacimiento(int nacimiento) {
+    public void setNacimiento(Integer nacimiento) {
         this.nacimiento = nacimiento;
     }
 
@@ -66,7 +67,7 @@ public class Autor {
         return fallecimiento;
     }
 
-    public void setFallecimiento(int fallecimiento) {
+    public void setFallecimiento(Integer fallecimiento) {
         this.fallecimiento = fallecimiento;
     }
 
@@ -80,12 +81,11 @@ public class Autor {
 
     @Override
     public String toString() {
-        return "Autor{" +
-                "Id=" + Id +
-                ", nombreAutor='" + nombreAutor + '\'' +
-                ", nacimiento=" + nacimiento +
-                ", fallecimiento=" + fallecimiento +
-                ", libros=" + libros +
-                '}';
+        return "\n====================== AUTOR ======================" + '\n' +
+                "Autor:  " + nombreAutor + '\n' +
+                "Año de nascimento: " + (nacimiento != null ?  nacimiento.toString(): "Desconhecido") + '\n' +
+                "Ano de falecimento: " + (fallecimiento != null ? fallecimiento.toString() : "Desconhecido") + '\n' +
+                "Livros: " + libros.stream().map(b -> b.getTitulo()).collect(Collectors.toSet()) + '\n' +
+                "===================================================";
     }
 }

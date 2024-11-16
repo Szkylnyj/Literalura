@@ -16,8 +16,9 @@ public class Libro {
 
    private String titulo;
 
-   @Enumerated(EnumType.STRING)
-   private Idioma idioma;
+
+   private String idioma;
+   //private Idioma idioma;
 
    private int totalDescargas;
 
@@ -31,12 +32,13 @@ public class Libro {
 
         this.Id= datosLibro.Id();
         this.titulo= datosLibro.titulo();
-        //this.idioma=datosLibro.idioma();
+        this.idioma=datosLibro.idiomas().getFirst();
+        //this.idioma=Idioma.fromString(datosLibro.idioma().name());
         this.totalDescargas=datosLibro.totalDescargas();
         this.autor=new Autor(datosLibro.autores().getFirst());
     }
 
-    public Libro(String titulo, Idioma idioma, int totalDescargas, Autor autor) {
+    public Libro(String titulo, String idioma, int totalDescargas, Autor autor) {
         this.titulo = titulo;
         this.idioma = idioma;
         this.totalDescargas = totalDescargas;
@@ -51,11 +53,11 @@ public class Libro {
         Id = id;
     }
 
-    public Idioma getIdioma() {
+    public String getIdioma() {
         return idioma;
     }
 
-    public void setIdioma(Idioma idioma) {
+    public void setIdioma(String idioma) {
         this.idioma = idioma;
     }
 
@@ -85,12 +87,12 @@ public class Libro {
 
     @Override
     public String toString() {
-        return "Libro{" +
-                "Id=" + Id +
-                ", titulo='" + titulo + '\'' +
-                ", idioma=" + idioma +
-                ", totalDescargas=" + totalDescargas +
-                ", autor=" + autor +
-                '}';
+        return
+                "\n====================== LIBRO ======================" + '\n' +
+                        "Título:  " + titulo + '\n' +
+                        "Autor: " + autor.getNombreAutor() + '\n' +
+                        "Idioma: " + idioma + '\n' +
+                        "Número de descargas: " + totalDescargas +'\n' +
+                        "===================================================" + '\n';
     }
 }
